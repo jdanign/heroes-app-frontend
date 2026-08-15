@@ -4,7 +4,7 @@ import { CustomJumbotron } from "@/components/custom"
 import { HeroStats } from "@/heroes/components/HeroStats"
 import { HeroGrid } from "@/heroes/components/HeroGrid"
 import { useState } from "react"
-import { CustomPagination } from "@/components/custom/CustomPagination"
+import { CustomPagination } from "@/components/custom"
 
 
 export const HomePage = ()=> {
