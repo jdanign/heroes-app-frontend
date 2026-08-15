@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui"
 
-import { CustomJumbotron } from "@/components/custom"
+import { CustomBreadcrumb, CustomJumbotron } from "@/components/custom"
 import { HeroStats } from "@/heroes/components/HeroStats"
 import { HeroGrid } from "@/heroes/components/HeroGrid"
 import { useState } from "react"
@@ -18,6 +18,8 @@ export const HomePage = ()=> {
 				title="Universo de Superhéroes" 
 				description="Descubre, explora y gestiona a tus superhéroes y villanos favoritos" 
 			/>
+
+			<CustomBreadcrumb currentPage="Super Héroes" />
 
 			{/* Stats Dashboard */}
 			<HeroStats />
