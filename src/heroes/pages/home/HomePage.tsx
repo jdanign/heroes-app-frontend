@@ -16,7 +16,7 @@ export const HomePage = ()=> {
 		getHeroesByPageAction().then();
 	}, []) */
 
-	const { data } = useQuery({
+	const { data: heroesResponse } = useQuery({
 		// Espacio en memoria donde guardar el resultado de la petición
 		queryKey: ['heroes'],
 		// Función que se dispara (llamada a la API)
@@ -25,7 +25,6 @@ export const HomePage = ()=> {
 		staleTime: 1000 * 60,
 	})
 
-	console.log({data});
 	
 
 
@@ -54,7 +53,7 @@ export const HomePage = ()=> {
 				<TabsContent value='all'>
 					<h1>Todos los personajes</h1>
 					{/* Character Grid */}
-					<HeroGrid />
+					<HeroGrid heroes={heroesResponse?.heroes ?? []} />
 				</TabsContent>
 				<TabsContent value='favorites'>
 					<h1>Personajes favoritos</h1>
