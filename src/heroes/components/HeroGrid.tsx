@@ -1,4 +1,4 @@
-import { HeroGridCard } from "./HeroGridCard"
+import { HeroGridCard } from "./"
 
 
 export const HeroGrid = ()=>{

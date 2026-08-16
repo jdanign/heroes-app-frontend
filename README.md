@@ -17,7 +17,7 @@ Configura la compatibilidad tradicional (node_modules).
 yarn config set nodeLinker node-modules
 ```
 
-O bien, abrir el archivo ***.yarnrc.yml*** recién generado y añadir manualmente esta línea.
+O bien, abrir el archivo `.yarnrc.yml` recién generado y añadir manualmente esta línea.
 
 ```YAML
 nodeLinker: node-modules
@@ -46,7 +46,7 @@ También habría que añadir la importación de TailwindCSS en el index.css.
 @import "tailwindcss";
 ```
 
-Hay que modificar el archivo ***tsconfig.json***:
+Hay que modificar el archivo `tsconfig.json`:
 
 ```JSON
 "compilerOptions": {
@@ -57,7 +57,7 @@ Hay que modificar el archivo ***tsconfig.json***:
 }
 ```
 
-Luego hay que modificar el archivo ***tsconfig.app.json***:
+Luego hay que modificar el archivo `tsconfig.app.json`:
 
 ```JSON
 "baseUrl": ".",
@@ -68,13 +68,13 @@ Luego hay que modificar el archivo ***tsconfig.app.json***:
   }
 ```
 
-Luego, instala ***@types/node***:
+Luego, instala `@types/node`:
 
 ```Shell
 yarn add -D @types/node
 ```
 
-Luego, actualiza ***vite.config.ts*** para que Vite pueda resolver el alias del ***@***:
+Luego, actualiza `vite.config.ts` para que Vite pueda resolver el alias del ***@***:
 
 ```JavaScript
 import path from "path"
@@ -105,7 +105,7 @@ Por último se instalan los componentes necesarios:
 yarn dlx shadcn@latest add
 ```
 
-# React Router
+    # React Router
 
 Hay [3 formas de usarlo](https://reactrouter.com/start/modes#decision-advice):
 
@@ -119,7 +119,7 @@ En esta aplicación se va a usar la opción de data. Para [instalarla](https://r
 yarn add react-router
 ```
 
-Posteriormente, habría que crear el directorio ***router*** en el ***src*** (podría estar ubicado en cualquier parte). Dentro de esa carpeta se podría crear el archivo ***app.router.tsx*** donde irá el sistema de rutas:
+Posteriormente, habría que crear el directorio ***router*** en el ***src*** (podría estar ubicado en cualquier parte). Dentro de esa carpeta se podría crear el archivo `app.router.tsx` donde irá el sistema de rutas:
 
 ```TSX
 import { createBrowserRouter } from 'react-router';
@@ -206,6 +206,71 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 export const heroApi = axios.create({
 	baseURL: `${BASE_URL}/api/heroes`,
 });
+```
+
+# Tanstack Query
+
+Instalación de [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/installation):
+
+```Shell
+yarn add @tanstack/react-query
+
+yarn add -D @tanstack/eslint-plugin-query
+```
+
+Es necesario crear el cliente en el componente principal de la aplicación `HeroesApp.tsx`:
+
+```JavaScript
+import { QueryClient } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+```
+
+En el mismo archivo, hay que envolver los componentes que exporta la aplicación en un ***QueryClientProvider*** (añadiendo la importación de ***tanstack/react-query***) y asignarle el ***queryClient*** creado:
+
+```JavaScript
+export const HeroesApp = ()=>{
+	return (
+		<QueryClientProvider client={queryClient}>
+			<RouterProvider router={appRrouter} />
+		</QueryClientProvider>
+	)
+}
+```
+
+Habría que instalar las devtools para depurar el desarrollo más fácilmente:
+
+```Shell
+yarn add @tanstack/react-query-devtools
+```
+
+Y agregarlas también al `HeroesApp.tsx` junto con su dependencia, quedando así:
+
+```JavaScript
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+export const HeroesApp = ()=>{
+	return (
+		<QueryClientProvider client={queryClient}>
+			<RouterProvider router={appRrouter} />
+
+			<ReactQueryDevtools initialIsOpen={false} />
+		</QueryClientProvider>
+	)
+}
+```
+
+Para hacer la petición a una API dentro de algún componente de la aplicación:
+
+```JavaScript
+const { data } = useQuery({
+	// Espacio en memoria donde guardar el resultado de la petición
+	queryKey: ['heroes'],
+	// Función que se dispara (llamada a la API)
+	queryFn: () => getHeroesByPageAction(),
+	// Tiempo que se almacena la petición en caché en segundos
+	staleTime: 1000 * 60,
+})
 ```
 
 # Variables de entorno

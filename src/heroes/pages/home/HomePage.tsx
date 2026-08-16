@@ -1,22 +1,31 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui"
+import { useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 
-import { CustomBreadcrumb, CustomJumbotron } from "@/components/custom"
-import { HeroStats } from "@/heroes/components/HeroStats"
-import { HeroGrid } from "@/heroes/components/HeroGrid"
-import { useEffect, useState } from "react"
-import { CustomPagination } from "@/components/custom"
-import { getHeroesByPage } from "@/heroes/actions/get-heroes-by-page.action"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui"
+import { CustomBreadcrumb, CustomJumbotron, CustomPagination } from "@/components/custom"
+import { HeroStats, HeroGrid } from "@/heroes/components"
+
+import { getHeroesByPageAction } from "@/heroes/actions"
 
 
 export const HomePage = ()=> {
 	const [activeTab, setActiveTab] = useState<'all' | 'favorites' | 'heroes' | 'villains'>('all');
 
 
-	useEffect(() => {
-		getHeroesByPage().then(heroes => {
-			console.log({heroes});
-		})
-	}, [])
+	/* useEffect(() => {
+		getHeroesByPageAction().then();
+	}, []) */
+
+	const { data } = useQuery({
+		// Espacio en memoria donde guardar el resultado de la petición
+		queryKey: ['heroes'],
+		// Función que se dispara (llamada a la API)
+		queryFn: () => getHeroesByPageAction(),
+		// Tiempo que se almacena la petición en caché en segundos
+		staleTime: 1000 * 60,
+	})
+
+	console.log({data});
 	
 
 

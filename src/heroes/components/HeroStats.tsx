@@ -1,6 +1,6 @@
 import { Users, Heart, Zap, Trophy } from "lucide-react"
 import { Badge } from "@/components/ui"
-import { HeroStatCard } from "./HeroStatCard"
+import { HeroStatCard } from "./"
 
 
 export const HeroStats = ()=>{

@@ -1,0 +1,1 @@
+export * from './get-heroes-by-page.action'

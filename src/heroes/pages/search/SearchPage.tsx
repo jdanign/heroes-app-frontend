@@ -1,5 +1,5 @@
 import { CustomBreadcrumb, CustomJumbotron } from "@/components/custom"
-import { HeroStats } from "@/heroes/components/HeroStats"
+import { HeroStats } from "@/heroes/components"
 import { SearchControls } from "./ui/SearchControls"
 
 

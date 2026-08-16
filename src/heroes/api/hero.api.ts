@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 // Importa la variable de entorno con el host del proyecto de backend
-const BASE_URL = import.meta.env.VITE_API_URL;
+export const BASE_URL = import.meta.env.VITE_API_URL;
 
 
 // Instancia de axios
