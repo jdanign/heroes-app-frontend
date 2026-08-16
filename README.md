@@ -119,7 +119,6 @@ En esta aplicación se va a usar la opción de data. Para [instalarla](https://r
 yarn add react-router
 ```
 
-
 Posteriormente, habría que crear el directorio ***router*** en el ***src*** (podría estar ubicado en cualquier parte). Dentro de esa carpeta se podría crear el archivo ***app.router.tsx*** donde irá el sistema de rutas:
 
 ```TSX
@@ -154,8 +153,7 @@ export const appRrouter = createBrowserRouter([
 ]);
 ```
 
-
-Los componentes que se califiquen como ***Layout***, deben contener el componente ***<Outlet />***:
+Los componentes que se califiquen como ***Layout***, deben contener el componente :
 
 ```TSX
 import { Outlet } from "react-router"
@@ -169,7 +167,6 @@ export const HeroesLayout = ()=>{
 	)
 }
 ```
-
 
 En el componente principal de la aplicación hay que insertar el código del router:
 
@@ -187,3 +184,32 @@ export const HeroesApp = ()=>{
 }
 ```
 
+# Axios
+
+Para instalar [axios](https://classic.yarnpkg.com/en/package/axios):
+
+```Shell
+yarn add axios
+```
+
+Crear la instancia de axios:
+
+```JavaScript
+import axios from 'axios';
+
+
+// Importa la variable de entorno con el host del proyecto de backend
+const BASE_URL = import.meta.env.VITE_API_URL;
+
+
+// Instancia de axios
+export const heroApi = axios.create({
+	baseURL: `${BASE_URL}/api/heroes`,
+});
+```
+
+# Variables de entorno
+
+Hay que editar el archivo `.env` con las variables de entorno basándose en el archivo `.env.template`.
+
+Luego ejecturar `yarn install` y `yarn dev`.
