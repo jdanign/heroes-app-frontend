@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useSearchParams } from "react-router"
 import { useQuery } from "@tanstack/react-query"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui"
@@ -6,10 +6,18 @@ import { CustomBreadcrumb, CustomJumbotron, CustomPagination } from "@/component
 import { HeroStats, HeroGrid } from "@/heroes/components"
 
 import { getHeroesByPageAction } from "@/heroes/actions"
+import { useMemo } from "react"
 
 
 export const HomePage = ()=> {
-	const [activeTab, setActiveTab] = useState<'all' | 'favorites' | 'heroes' | 'villains'>('all');
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const tabParam = searchParams.get('tab') ?? 'all';
+
+	const activeTab = useMemo(()=> {
+		const validTabs = ['all', 'favorites', 'heroes', 'villains'];
+		return validTabs.includes(tabParam) ? tabParam : 'all';
+	}, [tabParam])
 
 
 	/* useEffect(() => {
@@ -42,7 +50,12 @@ export const HomePage = ()=> {
 			<HeroStats />
 
 			{/* Tabs */}
-			<Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
+			<Tabs value={activeTab} className="mb-8"
+				onValueChange={value => setSearchParams(prev =>{
+					prev.set('tab', value);
+					return prev;
+				})}
+			>
 				<TabsList className="grid w-full grid-cols-4">
 					<TabsTrigger value="all">All Characters (16)</TabsTrigger>
 					<TabsTrigger value="favorites">Favorites (3)</TabsTrigger>

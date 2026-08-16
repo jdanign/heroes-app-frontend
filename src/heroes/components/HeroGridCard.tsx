@@ -1,6 +1,7 @@
 import { Brain, Eye, Gauge, Heart, Shield, Zap } from "lucide-react"
 import { Badge, Button, Card, CardContent, CardHeader, Progress } from "@/components/ui"
 import type { Hero } from "../types";
+import { useNavigate } from "react-router";
 
 
 interface Props {
@@ -11,9 +12,16 @@ const MAX_POWERS = 3;
 
 
 export const HeroGridCard = ({ hero }: Props)=>{
+	const navigate = useNavigate();
+
+
 	if (hero){
-		const { alias, category, description, durability, firstAppearance, image, intelligence, name, powers, speed, status, strength, team, universe } = hero;
-		console.log(hero);
+		const { alias, category, description, durability, firstAppearance, image, intelligence, name, powers, slug, speed, status, strength, team, universe } = hero;
+
+
+		const handleClick = ()=>{
+			navigate(`/heroes/${slug}`);
+		}
 
 
 		return (
@@ -23,6 +31,7 @@ export const HeroGridCard = ({ hero }: Props)=>{
 						src={image ?? '/placeholder.svg?height=300&width=300'}
 						alt={alias}
 						className="object-cover transition-all duration-500 group-hover:scale-110"
+						onClick={handleClick}
 					/>
 
 					{/* Status indicator */}
@@ -110,8 +119,8 @@ export const HeroGridCard = ({ hero }: Props)=>{
 						<div className="space-y-2">
 							<h4 className="font-medium text-sm">Poderes:</h4>
 							<div className="flex flex-wrap gap-1">
-								{hero.powers.slice(0, MAX_POWERS).map(power =>(
-									<Badge variant="outline" className="text-xs">
+								{hero.powers.slice(0, MAX_POWERS).map((power, i) =>(
+									<Badge key={i} variant="outline" className="text-xs">
 										{power}
 									</Badge>
 								))}

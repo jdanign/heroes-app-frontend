@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, Navigate } from 'react-router';
 
 import { HeroesLayout } from '@/heroes/layout/HeroesLayout';
 import { HomePage } from '@/heroes/pages/home/HomePage';
@@ -19,11 +19,11 @@ export const appRrouter = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <HomePage />
+				element: <HomePage />,
 			},
 			{
-				path: 'heroes/1',
-				element: <HeroPage />
+				path: 'heroes/:id', // id aparecerá en useParams() como parámetro de la URL
+				element: <HeroPage />,
 			},
 			{
 				path: 'search',
@@ -31,7 +31,11 @@ export const appRrouter = createBrowserRouter([
 					<Suspense fallback={<div>Cargando...</div>}>
 						<SearchPage />
 					</Suspense>
-				)
+				),
+			},
+			{
+				path: '*',
+				element: <Navigate to='/' />,
 			},
 		],
 	},
@@ -41,7 +45,7 @@ export const appRrouter = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <AdminPage />
+				element: <AdminPage />,
 			},
 		],
 	},
