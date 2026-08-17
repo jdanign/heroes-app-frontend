@@ -1,3 +1,5 @@
+import { useEffect, useMemo } from "react"
+
 import { useSearchParams } from "react-router"
 import { useQuery } from "@tanstack/react-query"
 
@@ -5,35 +7,59 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui"
 import { CustomBreadcrumb, CustomJumbotron, CustomPagination } from "@/components/custom"
 import { HeroStats, HeroGrid } from "@/heroes/components"
 
-import { getHeroesByPageAction } from "@/heroes/actions"
-import { useMemo } from "react"
+import { DEFAULT_LIMIT, DEFAULT_PAGE, DEFAULT_TAB, getHeroesByPageAction, VALID_TABS } from "@/heroes/actions"
 
 
 export const HomePage = ()=> {
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	const tabParam = searchParams.get('tab') ?? 'all';
+	const pageParam = Number(searchParams.get('page') ?? DEFAULT_PAGE.toString());
+	const pageActive = isNaN(pageParam) ? DEFAULT_PAGE : pageParam;
 
-	const activeTab = useMemo(()=> {
-		const validTabs = ['all', 'favorites', 'heroes', 'villains'];
-		return validTabs.includes(tabParam) ? tabParam : 'all';
+	const limitParam = Number(searchParams.get('limit') ?? DEFAULT_LIMIT.toString());
+	const limitActive = isNaN(limitParam) ? DEFAULT_LIMIT : limitParam;
+
+	const tabParam = searchParams.get('tab') ?? DEFAULT_TAB;
+
+	// Almacena la pestaña activa
+	const tabActive = useMemo(()=> {
+		return VALID_TABS.includes(tabParam) ? tabParam : DEFAULT_TAB;
 	}, [tabParam])
 
 
-	/* useEffect(() => {
-		getHeroesByPageAction().then();
-	}, []) */
+	// Modifica la URL en caso de que algún parámetro no sea válido
+	useEffect(() => {
+		if (!VALID_TABS.includes(tabParam))
+			setSearchParams(prev => {
+				prev.set('tab', DEFAULT_TAB);
+				return prev;
+			});
+		
+		if (isNaN(pageParam))
+			setSearchParams(prev => {
+				prev.set('page', DEFAULT_PAGE.toString());
+				return prev;
+			});
 
+		if (isNaN(limitParam))
+			setSearchParams(prev => {
+				prev.set('limit', DEFAULT_LIMIT.toString());
+				return prev;
+			});
+	}, [tabParam, pageParam, limitParam, setSearchParams])
+
+
+	// Petición HTTP con caché
 	const { data: heroesResponse } = useQuery({
 		// Espacio en memoria donde guardar el resultado de la petición
-		queryKey: ['heroes'],
+		queryKey: ['heroes', { page: pageActive, limit: limitActive }],
 		// Función que se dispara (llamada a la API)
-		queryFn: () => getHeroesByPageAction(),
+		queryFn: () => getHeroesByPageAction(pageActive, limitActive),
 		// Tiempo que se almacena la petición en caché en segundos
 		staleTime: 1000 * 60,
 	})
 
-	
+
 
 
 	return (
@@ -50,7 +76,7 @@ export const HomePage = ()=> {
 			<HeroStats />
 
 			{/* Tabs */}
-			<Tabs value={activeTab} className="mb-8"
+			<Tabs value={tabActive} className="mb-8"
 				onValueChange={value => setSearchParams(prev =>{
 					prev.set('tab', value);
 					return prev;
@@ -88,7 +114,12 @@ export const HomePage = ()=> {
 			
 
 			{/* Pagination */}
-			<CustomPagination totalPages={8} />
+			{heroesResponse &&
+				<CustomPagination 
+					totalPages={heroesResponse?.pages ?? DEFAULT_PAGE}
+					page={pageActive}
+				/>
+			}
 		</>
 	)
 }
