@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router";
 
-import { ChevronLeft, ChevronRight, /* MoreHorizontal */ } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "../ui"
 
 import { DEFAULT_PAGE } from "@/heroes/actions";
