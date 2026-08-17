@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui"
 import { CustomBreadcrumb, CustomJumbotron, CustomPagination } from "@/components/custom"
 import { HeroStats, HeroGrid } from "@/heroes/components"
 
-import { DEFAULT_LIMIT, DEFAULT_PAGE, DEFAULT_TAB, getHeroesByPageAction, VALID_TABS } from "@/heroes/actions"
+import { DEFAULT_LIMIT, DEFAULT_PAGE, DEFAULT_TAB, getHeroesByPageAction, getSummaryAction, VALID_TABS } from "@/heroes/actions"
 
 
 export const HomePage = ()=> {
@@ -57,7 +57,14 @@ export const HomePage = ()=> {
 		queryFn: () => getHeroesByPageAction(pageActive, limitActive),
 		// Tiempo que se almacena la petición en caché en segundos
 		staleTime: 1000 * 60,
-	})
+	});
+
+
+	const {data: summary} = useQuery({
+			queryKey: ['summary-info'],
+			queryFn: ()=> getSummaryAction(),
+			staleTime: 1000 * 60
+		});
 
 
 
@@ -73,7 +80,7 @@ export const HomePage = ()=> {
 			<CustomBreadcrumb currentPage="Super Héroes" />
 
 			{/* Stats Dashboard */}
-			<HeroStats />
+			<HeroStats summary={summary} />
 
 			{/* Tabs */}
 			<Tabs value={tabActive} className="mb-8"
@@ -83,10 +90,10 @@ export const HomePage = ()=> {
 				})}
 			>
 				<TabsList className="grid w-full grid-cols-4">
-					<TabsTrigger value="all">All Characters (16)</TabsTrigger>
+					<TabsTrigger value="all">All Characters ({summary?.totalHeroes})</TabsTrigger>
 					<TabsTrigger value="favorites">Favorites (3)</TabsTrigger>
-					<TabsTrigger value="heroes">Heroes (12)</TabsTrigger>
-					<TabsTrigger value="villains">Villains (2)</TabsTrigger>
+					<TabsTrigger value="heroes">Heroes ({summary?.heroCount})</TabsTrigger>
+					<TabsTrigger value="villains">Villains ({ summary?.villainCount})</TabsTrigger>
 				</TabsList>
 
 				<TabsContent value='all'>
