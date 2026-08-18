@@ -1,11 +1,11 @@
 import { BASE_URL, heroApi } from "../api"
-import type { Hero, HeroesResponse } from "../types";
+import type { Hero, HeroesResponse, Limit, Pages } from "../types";
 
 
 export const VALID_TABS: string[] = ['all', 'favorites', 'heroes', 'villains'];
 export const DEFAULT_TAB: string = 'all';
-export const DEFAULT_PAGE: number = 1;
-export const DEFAULT_LIMIT: number = 6;
+export const DEFAULT_PAGE: Pages = 1;
+export const DEFAULT_LIMIT: Limit = 6;
 
 
 export const getHeroesByPageAction = async (

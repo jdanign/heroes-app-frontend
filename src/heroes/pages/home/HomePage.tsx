@@ -1,13 +1,14 @@
 import { useEffect, useMemo } from "react"
 
 import { useSearchParams } from "react-router"
-import { useQuery } from "@tanstack/react-query"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui"
 import { CustomBreadcrumb, CustomJumbotron, CustomPagination } from "@/components/custom"
 import { HeroStats, HeroGrid } from "@/heroes/components"
 
-import { DEFAULT_LIMIT, DEFAULT_PAGE, DEFAULT_TAB, getHeroesByPageAction, getSummaryAction, VALID_TABS } from "@/heroes/actions"
+import { DEFAULT_LIMIT, DEFAULT_PAGE, DEFAULT_TAB, VALID_TABS } from "@/heroes/actions"
+
+import { useHeroPagination, useHeroSummary } from "@/heroes/hooks"
 
 
 export const HomePage = ()=> {
@@ -50,21 +51,9 @@ export const HomePage = ()=> {
 
 
 	// Petición HTTP con caché
-	const { data: heroesResponse } = useQuery({
-		// Espacio en memoria donde guardar el resultado de la petición
-		queryKey: ['heroes', { page: pageActive, limit: limitActive }],
-		// Función que se dispara (llamada a la API)
-		queryFn: () => getHeroesByPageAction(pageActive, limitActive),
-		// Tiempo que se almacena la petición en caché en segundos
-		staleTime: 1000 * 60,
-	});
+	const { data: heroesResponse } = useHeroPagination(pageActive, limitActive);
 
-
-	const {data: summary} = useQuery({
-		queryKey: ['summary-info'],
-		queryFn: ()=> getSummaryAction(),
-		staleTime: 1000 * 60
-	});
+	const { data: summary } = useHeroSummary();
 
 
 
