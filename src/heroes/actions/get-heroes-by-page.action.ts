@@ -9,8 +9,8 @@ export const DEFAULT_LIMIT: Limit = 6;
 
 
 export const getHeroesByPageAction = async (
-	page: number, 
-	limit: number = DEFAULT_LIMIT
+	page: Pages, 
+	limit: Limit = DEFAULT_LIMIT
 ): Promise<HeroesResponse> =>{
 	// Validación de parámetros 
 	if (isNaN(page))
