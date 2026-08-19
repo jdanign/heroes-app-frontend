@@ -1,7 +1,10 @@
+export type HeroId = string;
+export type HeroSlug = string;
+
 export interface Hero {
-	id: string;
+	id: HeroId;
 	name: string;
-	slug: string;
+	slug: HeroSlug;
 	alias: string;
 	powers: string[];
 	description: string;

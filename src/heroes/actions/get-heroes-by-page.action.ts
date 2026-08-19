@@ -1,4 +1,4 @@
-import { BASE_URL, heroApi } from "../api"
+import { heroApi, imageRealPath } from "../api"
 import type { Hero, HeroesResponse, Limit, Pages } from "../types";
 
 
@@ -36,7 +36,7 @@ export const getHeroesByPageAction = async (
 	// Sustituye la propiedad image añadiéndole la ruta completa
 	const heroes = data.heroes.map((hero: Hero) =>({
 		...hero,
-		image: `${BASE_URL}/images/${hero.image}`
+		image: imageRealPath(hero.image),
 	}))
 
 

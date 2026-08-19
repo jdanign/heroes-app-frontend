@@ -10,7 +10,7 @@ export const CustomMenu = ()=>{
 
 
 	return (
-		<NavigationMenu>
+		<NavigationMenu className='py-6'>
 			<NavigationMenuList>
 				{/* Home */}
 				<NavigationMenuItem>
