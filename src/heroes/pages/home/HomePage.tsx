@@ -21,11 +21,10 @@ export const HomePage = ()=> {
 	const limitActive = isNaN(limitParam) ? DEFAULT_LIMIT : limitParam;
 
 	const tabParam = searchParams.get('tab') ?? DEFAULT_TAB;
-
 	// Almacena la pestaña activa
 	const tabActive = useMemo(()=> {
 		return VALID_TABS.includes(tabParam) ? tabParam : DEFAULT_TAB;
-	}, [tabParam])
+	}, [tabParam]);
 
 
 	// Modifica la URL en caso de que algún parámetro no sea válido
@@ -51,8 +50,7 @@ export const HomePage = ()=> {
 
 
 	// Petición HTTP con caché
-	const { data: heroesResponse } = useHeroPagination(pageActive, limitActive);
-
+	const { data: heroesResponse } = useHeroPagination(pageActive, limitActive, tabActive);
 	const { data: summary } = useHeroSummary();
 
 
@@ -81,8 +79,8 @@ export const HomePage = ()=> {
 				<TabsList className="grid w-full grid-cols-4">
 					<TabsTrigger value="all">All Characters ({summary?.totalHeroes})</TabsTrigger>
 					<TabsTrigger value="favorites">Favorites (3)</TabsTrigger>
-					<TabsTrigger value="heroes">Heroes ({summary?.heroCount})</TabsTrigger>
-					<TabsTrigger value="villains">Villains ({ summary?.villainCount})</TabsTrigger>
+					<TabsTrigger value="hero">Heroes ({summary?.heroCount})</TabsTrigger>
+					<TabsTrigger value="villain">Villains ({ summary?.villainCount})</TabsTrigger>
 				</TabsList>
 
 				<TabsContent value='all'>
@@ -95,15 +93,15 @@ export const HomePage = ()=> {
 					{/* Character Grid */}
 					<HeroGrid />
 				</TabsContent>
-				<TabsContent value='heroes'>
+				<TabsContent value='hero'>
 					<h1>Héroes</h1>
 					{/* Character Grid */}
-					<HeroGrid />
+					<HeroGrid heroes={heroesResponse?.heroes ?? []} />
 				</TabsContent>
-				<TabsContent value='villains'>
+				<TabsContent value='villain'>
 					<h1>Villanos</h1>
 					{/* Character Grid */}
-					<HeroGrid />
+					<HeroGrid heroes={heroesResponse?.heroes ?? []} />
 				</TabsContent>
 			</Tabs>
 
