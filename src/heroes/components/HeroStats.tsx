@@ -11,7 +11,7 @@ import { FavoriteHeroContext } from "@/context";
 
 
 interface Props {
-	summary: NoInfer<HeroesSummaryResponse> | undefined;
+	summary?: NoInfer<HeroesSummaryResponse> | undefined;
 }
 
 

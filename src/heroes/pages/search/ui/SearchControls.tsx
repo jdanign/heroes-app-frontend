@@ -1,8 +1,27 @@
+import { useRef, type KeyboardEvent } from "react"
+import { useSearchParams } from "react-router";
+
 import { Search, Filter, SortAsc, Grid, Plus } from "lucide-react"
 import { Input, Button } from "@/components/ui"
 
 
 export const SearchControls = ()=>{
+	const inputRef = useRef<HTMLInputElement>(null);
+
+	const [searchParams, setSearchParams] = useSearchParams();
+
+
+	const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>)=>{
+		if (e.key === 'Enter'){
+			// Actualizar URL search?name=superman&category=hero
+			setSearchParams(prev => {
+				prev.set('name', inputRef.current?.value ?? '');
+				return prev;
+			});
+		}
+	}
+
+
 	return (
 		<>
 			<div className="flex flex-col lg:flex-row gap-4 mb-8">
@@ -11,6 +30,9 @@ export const SearchControls = ()=>{
 					<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
 					<Input className="pl-12 h-12 text-lg bg-white" 
 						placeholder="Busca héroes, villanos, poderes, equipos..." 
+						ref={inputRef}
+						onKeyUp={handleKeyUp}
+						defaultValue={searchParams.get('name') ?? ''}
 						/>
 				</div>
 
