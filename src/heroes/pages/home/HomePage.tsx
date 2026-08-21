@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react"
+import { use, useEffect, useMemo } from "react"
 
 import { useSearchParams } from "react-router"
 
@@ -9,6 +9,8 @@ import { HeroStats, HeroGrid } from "@/heroes/components"
 import { DEFAULT_LIMIT, DEFAULT_PAGE, DEFAULT_TAB, VALID_TABS } from "@/heroes/actions"
 
 import { useHeroPagination, useHeroSummary } from "@/heroes/hooks"
+
+import { FavoriteHeroContext } from "@/context"
 
 
 export const HomePage = ()=> {
@@ -54,6 +56,9 @@ export const HomePage = ()=> {
 	const { data: summary } = useHeroSummary();
 
 
+	const { favoriteCount, favorites } = use(FavoriteHeroContext);
+
+
 
 
 	return (
@@ -78,7 +83,7 @@ export const HomePage = ()=> {
 			>
 				<TabsList className="grid w-full grid-cols-4">
 					<TabsTrigger value="all">All Characters ({summary?.totalHeroes})</TabsTrigger>
-					<TabsTrigger value="favorites">Favorites (3)</TabsTrigger>
+					<TabsTrigger value="favorites">Favorites ({favoriteCount})</TabsTrigger>
 					<TabsTrigger value="hero">Heroes ({summary?.heroCount})</TabsTrigger>
 					<TabsTrigger value="villain">Villains ({ summary?.villainCount})</TabsTrigger>
 				</TabsList>
@@ -91,7 +96,7 @@ export const HomePage = ()=> {
 				<TabsContent value='favorites'>
 					<h1>Personajes favoritos</h1>
 					{/* Character Grid */}
-					<HeroGrid />
+					<HeroGrid heroes={favorites} />
 				</TabsContent>
 				<TabsContent value='hero'>
 					<h1>Héroes</h1>
@@ -108,7 +113,7 @@ export const HomePage = ()=> {
 			
 
 			{/* Pagination */}
-			{heroesResponse &&
+			{heroesResponse && tabActive !== 'favorites' &&
 				<CustomPagination 
 					totalPages={heroesResponse?.pages ?? DEFAULT_PAGE}
 					page={pageActive}

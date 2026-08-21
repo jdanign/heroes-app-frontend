@@ -1,5 +1,20 @@
 # React + TypeScript + Vite
 
+## Instalación desde repositorio
+
+Clonar el repositorio.
+
+Renombrar el archivo con variables de entorno `.env.template` a `.env` y ajustar las variables incompletas.
+
+Ejecutar los comandos:
+
+```Shell
+yarn install
+yarn dev
+```
+
+## Proyecto creado mediante
+
 ```Shell
 yarn create vite
 ```
