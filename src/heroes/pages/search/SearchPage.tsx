@@ -18,8 +18,6 @@ export const SearchPage = ()=>{
 		strength: searchParams.get('strength') ?? undefined,
 	});
 
-	console.log({heroes});
-
 
 	return (
 		<>

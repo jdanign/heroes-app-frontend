@@ -1,3 +1,4 @@
+export * from './accordion';
 export * from './badge';
 export * from './breadcrumb';
 export * from './button';
@@ -6,4 +7,5 @@ export * from './dropdown-menu';
 export * from './input';
 export * from './navigation-menu';
 export * from './progress';
+export * from './slider';
 export * from './tabs';
