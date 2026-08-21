@@ -72,7 +72,7 @@ export const HomePage = ()=> {
 			<CustomBreadcrumb currentPage="Super Héroes" />
 
 			{/* Stats Dashboard */}
-			<HeroStats summary={summary} />
+			<HeroStats />
 
 			{/* Tabs */}
 			<Tabs value={tabActive} className="mb-8"

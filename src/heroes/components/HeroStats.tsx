@@ -5,17 +5,13 @@ import { Users, Heart, Zap, Trophy } from "lucide-react"
 import { Badge } from "@/components/ui"
 import { HeroStatCard } from "./"
 
-import type { HeroesSummaryResponse } from "../types"
-
 import { FavoriteHeroContext } from "@/context";
+import { useHeroSummary } from "../hooks";
 
 
-interface Props {
-	summary?: NoInfer<HeroesSummaryResponse> | undefined;
-}
-
-
-export const HeroStats = ({ summary }: Props)=>{
+export const HeroStats = ()=>{
+	const { data: summary } = useHeroSummary();
+	
 	if (summary){
 		const { heroCount, villainCount, totalHeroes, strongestHero, smartestHero } = summary;
 

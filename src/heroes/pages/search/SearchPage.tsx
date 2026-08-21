@@ -1,9 +1,26 @@
+import { useSearchParams } from "react-router";
+import { useHeroSearch } from "@/heroes/hooks";
+
 import { CustomBreadcrumb, CustomJumbotron } from "@/components/custom"
-import { HeroStats } from "@/heroes/components"
-import { SearchControls } from "./ui/SearchControls"
+import { SearchControls } from "./ui"
+import { HeroGrid, HeroStats } from "@/heroes/components";
 
 
 export const SearchPage = ()=>{
+	const [searchParams] = useSearchParams();
+
+	const { data: heroes } = useHeroSearch({
+		name: searchParams.get('name') ?? undefined,
+		team: searchParams.get('team') ?? undefined,
+		category: searchParams.get('category') ?? undefined,
+		universe: searchParams.get('universe') ?? undefined,
+		status: searchParams.get('status') ?? undefined,
+		strength: searchParams.get('strength') ?? undefined,
+	});
+
+	console.log({heroes});
+
+
 	return (
 		<>
 			{/* Header */}
@@ -26,6 +43,8 @@ export const SearchPage = ()=>{
 
 			{/* Controls */}
 			<SearchControls />
+
+			<HeroGrid heroes={heroes ?? []} />
 		</>
 	)
 }
