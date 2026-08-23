@@ -293,3 +293,63 @@ const { data } = useQuery({
 Hay que editar el archivo `.env` con las variables de entorno basándose en el archivo `.env.template`.
 
 Luego ejecturar `yarn install` y `yarn dev`.
+
+
+# Testing
+
+Es mejor empezar a probar las partes más pequeñas y fáciles, para ir aumentando la complejidad.
+
+Al trabajar con Vite, la integración de las pruebas es más transparente con la librería de testing [Vitest](https://vitest.dev).
+
+```Shell
+yarn add -D vitest jsdom
+```
+
+En el archivo `package.json`, dentro del objeto `scripts`, añadir:
+
+```JSON
+"test": "vitest",
+"test:ui": "vitest --ui",
+"test:c": "vitest run --coverage"
+```
+
+Será necesario crear algún archivo de pruebas en el proyecto, por ejemplo `math.helper.test.ts`, el cual debe contener al menos una prueba.
+
+También será necesario instalar [Testing Library](https://testing-library.com/docs/react-testing-library/intro) para hacer evaluaciones sobre los componentes, renderizaciones e interaccionar con ellos.
+
+```Shell
+yarn add -D @testing-library/react @testing-library/dom @types/react @types/react-dom
+```
+
+En el archivo `vite.config.ts` hay que modificar el `import { defineConfig } from 'vite'` y poner `import { defineConfig } from 'vitest/config'`. Debería quedar algo así:
+
+```JavaScript
+// import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
+import react from '@vitejs/plugin-react-swc'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+  }
+})
+```
+
+Si sale un error, salir del testeo y volver a ejecutar `yarn test`. Pedirá instalar la dependencia `jsdom` y habría que instalarla.
+
+### UI
+
+
+
+### Coverage
+
+Muestra un informe sobre la coberturda de las pruebas que se han programado.
+
+```Shell
+yarn test:c
+```
+
+Además de la visualización en consola, se crea un nuevo directorio `coverage`. Abriendo el `index.html` se muestra en el navegador el informe.
