@@ -292,10 +292,20 @@ const { data } = useQuery({
 
 Hay que editar el archivo `.env` con las variables de entorno basándose en el archivo `.env.template`.
 
+Si existe un archivo `.env.test` se usará para hacer el testing.
+
 Luego ejecturar `yarn install` y `yarn dev`.
 
 
 # Testing
+
+El backend está en otro proyecto. También, habría que configurar el puerto para el testeo.
+
+```Shell
+cd 'C:\DESARROLLO WEB\CURSOS\react-19\06-heroes-nest-backend' 
+
+$env:PORT=3001; npm run start:dev
+```
 
 Es mejor empezar a probar las partes más pequeñas y fáciles, para ir aumentando la complejidad.
 
