@@ -296,8 +296,12 @@ Si existe un archivo `.env.test` se usará para hacer el testing.
 
 Luego ejecturar `yarn install` y `yarn dev`.
 
-
 # Testing
+
+Es mejor empezar a probar las partes más pequeñas y fáciles, para ir aumentando la complejidad.
+
+1. hero.api.ts
+2. Directorio actions
 
 El backend está en otro proyecto. También, habría que configurar el puerto para el testeo.
 
@@ -306,8 +310,6 @@ cd 'C:\DESARROLLO WEB\CURSOS\react-19\06-heroes-nest-backend'
 
 $env:PORT=3001; npm run start:dev
 ```
-
-Es mejor empezar a probar las partes más pequeñas y fáciles, para ir aumentando la complejidad.
 
 Al trabajar con Vite, la integración de las pruebas es más transparente con la librería de testing [Vitest](https://vitest.dev).
 
@@ -350,9 +352,13 @@ export default defineConfig({
 
 Si sale un error, salir del testeo y volver a ejecutar `yarn test`. Pedirá instalar la dependencia `jsdom` y habría que instalarla.
 
+Si se está usando Axios, habría que añadir la librería para [mocks de axios](https://classic.yarnpkg.com/en/package/axios-mock-adapter).
+
+```Shell
+yarn add -D axios-mock-adapter
+```
+
 ### UI
-
-
 
 ### Coverage
 
