@@ -1,0 +1,58 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`app.router.test > Debería estar configurado correctamente 1`] = `
+[
+  {
+    "children": [
+      {
+        "element": <HomePage />,
+        "id": "0-0",
+        "index": true,
+      },
+      {
+        "children": undefined,
+        "element": <HeroPage />,
+        "id": "0-1",
+        "path": "heroes/:id",
+      },
+      {
+        "children": undefined,
+        "element": <React.Suspense
+          fallback={
+            <div>
+              Cargando...
+            </div>
+          }
+        >
+          <UNDEFINED />
+        </React.Suspense>,
+        "id": "0-2",
+        "path": "search",
+      },
+      {
+        "children": undefined,
+        "element": <Navigate
+          to="/"
+        />,
+        "id": "0-3",
+        "path": "*",
+      },
+    ],
+    "element": <HeroesLayout />,
+    "id": "0",
+    "path": "/",
+  },
+  {
+    "children": [
+      {
+        "element": <AdminPage />,
+        "id": "1-0",
+        "index": true,
+      },
+    ],
+    "element": <AdminLayout />,
+    "id": "1",
+    "path": "/admin",
+  },
+]
+`;
