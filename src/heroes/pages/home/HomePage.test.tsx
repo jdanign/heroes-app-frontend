@@ -48,7 +48,7 @@ describe('HomePage.test', () => {
 	})
 
 	test('Debería renderizar el componente con los valores por defecto', () => {
-		const  {container} = renderHomePage()
+		const {container} = renderHomePage()
 
 		screen.debug()
 
