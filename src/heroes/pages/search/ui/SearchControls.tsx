@@ -89,7 +89,7 @@ export const SearchControls = ()=>{
 			</div>
 
 			{/* Advanced Filters */}
-			<Accordion value={[activeAccordion]} >
+			<Accordion value={[activeAccordion]} data-testid="accordion-filter" >
 				<AccordionItem value={ACCORDION_NAME}>
 					{/* <AccordionTrigger>Filtros avanzados</AccordionTrigger> */}
 					<AccordionContent>
@@ -127,6 +127,7 @@ export const SearchControls = ()=>{
 							<div className="mt-4">
 								<label className="text-sm font-medium">Minimum Strength: {selectedStrength}/10</label>
 								<Slider 
+									data-testid="slider-strength"
 									defaultValue={[selectedStrength]} 
 									max={10} 
 									step={1} 
