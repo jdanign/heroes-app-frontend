@@ -25,6 +25,16 @@ vi.mocked(useHeroSummary).mockReturnValue({
 	isSuccess: true,
 } as unknown as ReturnType<typeof useHeroSummary>)
 
+// Tambien podría usarse definido de esta manera (está sin probar)
+/* vi.mock('@/heroes/hooks', ()=>({
+    useHeroSearch: ()=> ({
+        data: [],
+        isLoading: false,
+        isError: false,
+        isSuccess: true,
+    } as unknown as ReturnType<typeof useHeroSearch>),
+})) */
+
 
 vi.mock('@/components/custom', ()=>({
 	CustomJumbotron: ()=> <div data-testid="custom-jumbotron"></div>,
