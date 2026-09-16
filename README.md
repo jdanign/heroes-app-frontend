@@ -399,4 +399,13 @@ Hay que ejecutar el comando `yarn build` para que se ejecute el testing y genere
 
 Para el despliegue en netlify hay que registrarse y en el módulo de `projects` soltar la carpeta `dist` tal cual.
 
-Para el despliegue en `github pages`, hay que renombrar la carpeta `dist` a `docs`.
+Para el despliegue en `github pages`, hay que renombrar la carpeta `dist` a `docs`. Luego hay que hacer el commit de los cambios y el push a github. En github, dentro del repositorio, hay que ir a `settings > pages`, marcar la rama `main`, el directorio `docs` y hacer clic en `save`; aquí aparecerá la URL donde estará desplegado. 
+
+En github, hay un icono redondo naranja o un check verde entre el nombre de usuario y el tiempo que hace que se hizo el push. Cuado esté en verde se habrá publicado en `github pages`.
+
+En el `index.html` del proyecto hay que añadir a los assets el dominio del repositorio en github pages (`/heroes-app-frontend`):
+
+```HTML
+<script type="module" crossorigin src="/heroes-app-frontend/assets/index-DVxmn3Ud.js"></script>
+<link rel="stylesheet" crossorigin href="/heroes-app-frontend/assets/index-D7cKo7tY.css">
+```
