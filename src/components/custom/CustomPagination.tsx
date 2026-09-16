@@ -53,7 +53,7 @@ export const CustomPagination = ({ totalPages, page }: Props)=>{
 				Anterior
 			</Button>
 
-			{Array.from({length: totalPages}).map((item, index)=>(
+			{Array.from({length: totalPages}).map((_, index)=>(
 				<Button 
 					key={index} 
 					variant={(currentPage === index + 1) ? 'default' : 'outline'} 

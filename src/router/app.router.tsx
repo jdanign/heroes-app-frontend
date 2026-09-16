@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { createBrowserRouter, Navigate } from 'react-router';
+import { /* createBrowserRouter, */ createHashRouter, Navigate } from 'react-router';
 
 import { HeroesLayout } from '@/heroes/layout/HeroesLayout';
 import { HomePage } from '@/heroes/pages/home/HomePage';
@@ -11,7 +11,9 @@ import { AdminLayout } from '@/admin/layout/AdminLayout';
 import { AdminPage } from '@/admin/pages/AdminPage';
 
 
-export const appRrouter = createBrowserRouter([
+// Esto solo hay que hacerlo si no tenemos el control de la ruta donde irá el index.html en el servidor de producción
+// export const appRrouter = createBrowserRouter([
+export const appRrouter = createHashRouter([
 	// Layout compartido (tienen una estructura visual similar)
 	{
 		path:'/',

@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vitest";
 
 import { getHeroAction } from "./get-hero.action";
+import { imageRealPath } from "../api";
 
 
 const heroOK = 'clark-kent';
@@ -13,7 +14,8 @@ describe('get-hero.action', () => {
 
 		// console.log(result);
 		
-		expect(result.image).toContain('http')
+		expect(result.image).toMatch(/\.(jpe?g|png|webp|svg|gif)$/i)
+		expect(imageRealPath(result.image)).toMatch(/^https?:\/\/.*\.(jpe?g|png|webp)$/i)
 		expect(result).toStrictEqual({
 			id: expect.any(String),
 			name: expect.any(String),

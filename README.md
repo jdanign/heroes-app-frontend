@@ -392,3 +392,11 @@ Por último, hacer clic en deploy.
 En el proyecto del frontend. Primero hay que modificar la variable de entorno `VITE_API_URL` y ponerle la URL donde se ha publicado el proyecto en la plataforma Render (paso anterior).
 
 Posteriormente se puede comprobar como el proyecto funciona en el entrono local de desarrollo con el comando `yarn dev`.
+
+Hay que configurar el router de la aplicación y usar `createHashRouter`, solo si no tenemos el control de donde irá el index.html, en este caso no lo tenemos por estar en `netlify`.
+
+Hay que ejecutar el comando `yarn build` para que se ejecute el testing y genere los archivos para desplegar la aplicación. Para que el testing no falle, se puede levantar el backend de desarrollo en la consola como se ha hecho en el testing previo.
+
+Para el despliegue en netlify hay que registrarse y en el módulo de `projects` soltar la carpeta `dist` tal cual.
+
+Para el despliegue en `github pages`, hay que renombrar la carpeta `dist` a `docs`.
