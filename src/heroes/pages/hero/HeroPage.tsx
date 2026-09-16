@@ -4,6 +4,7 @@ import { Shield, Zap, Brain, Gauge, Users, Star, Award } from "lucide-react"
 import { Badge, Card, CardContent, CardHeader, CardTitle, Progress, Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui"
 
 import { useHeroInfo } from "@/heroes/hooks"
+import { imageRealPath } from "@/heroes/api"
 
 
 export const HeroPage = ()=>{
@@ -66,7 +67,7 @@ export const HeroPage = ()=>{
 						<div className="flex flex-col md:flex-row items-center gap-8">
 							<div className="relative">
 								<img
-									src={image || "/placeholder.svg"}
+									src={imageRealPath(image || '/placeholder.svg')}
 									alt={alias}
 									width={200}
 									height={200}

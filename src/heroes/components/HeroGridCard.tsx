@@ -8,6 +8,7 @@ import { Brain, Eye, Gauge, Heart, Shield, Zap } from "lucide-react"
 import { Badge, Button, Card, CardContent, CardHeader, Progress } from "@/components/ui"
 
 import type { Hero } from "../types";
+import { imageRealPath } from "../api";
 
 
 interface Props {
@@ -36,7 +37,7 @@ export const HeroGridCard = ({ hero }: Props)=>{
 			<Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50">
 				<div className="relative h-64 overflow-hidden">
 					<img
-						src={image ?? '/placeholder.svg?height=300&width=300'}
+						src={imageRealPath(image ?? '/placeholder.svg?height=300&width=300')}
 						alt={alias}
 						className="object-cover transition-all duration-500 group-hover:scale-110"
 						onClick={handleClick}

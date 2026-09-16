@@ -1,4 +1,4 @@
-import { heroApi, imageRealPath } from "../api"
+import { heroApi } from "../api"
 import type { Hero } from "../types";
 
 
@@ -33,7 +33,6 @@ export const searchHeroAction = async (options: SearchOptions): Promise<Hero[]> 
 		// Sustituye la propiedad image añadiéndole la ruta completa
 		return data.map((hero: Hero) =>({
 			...hero,
-			image: imageRealPath(hero.image),
 		}));
 	}
 	else 

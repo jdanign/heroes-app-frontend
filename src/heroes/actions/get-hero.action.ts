@@ -1,4 +1,4 @@
-import { heroApi, imageRealPath } from "../api"
+import { heroApi } from "../api"
 import type { Hero, HeroSlug } from "../types";
 
 
@@ -10,6 +10,5 @@ export const getHeroAction = async (
 
 	return {
 		...data,
-		image: imageRealPath(data.image),
 	};
 }

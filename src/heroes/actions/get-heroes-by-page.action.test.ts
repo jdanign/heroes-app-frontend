@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test } from "vitest";
 import AxiosMockAdapter from "axios-mock-adapter";
 
-import { heroApi, imageRealPath } from "../api";
+import { heroApi } from "../api";
 import { getHeroesByPageAction } from "./get-heroes-by-page.action";
 
 
@@ -36,7 +36,7 @@ describe('get-heroes-by-page.action', () => {
 			total: respObj.total,
 			pages: respObj.pages,
 			heroes: expect.arrayContaining(respObj.heroes.map(hero => 
-				expect.objectContaining({ image: imageRealPath(hero.image) })
+				expect.objectContaining({ image: hero.image })
 			))
 		})
 	})

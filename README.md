@@ -369,3 +369,26 @@ yarn test:c
 ```
 
 Además de la visualización en consola, se crea un nuevo directorio `coverage`. Abriendo el `index.html` se muestra en el navegador el informe.
+
+
+
+# Despliegue
+
+## Backend
+
+El backend de este proyecto está hecho en nest. Se puede desplegar en VPS, servidores dedicados, vercel, render, netlify, firebase... cualquier entorno que tenga node.
+
+Primero hay que crear el repositorio en github y subirlo. 
+
+Posteriormente hay que ir a Render y crear un nuevo proyecto en el dashboard.
+
+Después hay que crear un nuevo web service en render. Ahí hay que seleccionar el código subido a github del backend. Hay que marcar ek kit gratuito.
+
+Por último, hacer clic en deploy.
+
+
+## Frontend
+
+En el proyecto del frontend. Primero hay que modificar la variable de entorno `VITE_API_URL` y ponerle la URL donde se ha publicado el proyecto en la plataforma Render (paso anterior).
+
+Posteriormente se puede comprobar como el proyecto funciona en el entrono local de desarrollo con el comando `yarn dev`.

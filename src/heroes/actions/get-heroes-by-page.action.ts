@@ -1,5 +1,5 @@
-import { heroApi, imageRealPath } from "../api"
-import type { Hero, HeroesResponse, Limit, Pages } from "../types";
+import { heroApi } from "../api"
+import type { HeroesResponse, Limit, Pages } from "../types";
 
 
 export const VALID_TABS: string[] = ['all', 'favorites', 'hero', 'villain'];
@@ -32,16 +32,7 @@ export const getHeroesByPageAction = async (
 		}
 	});
 
-
-	// Sustituye la propiedad image añadiéndole la ruta completa
-	const heroes = data.heroes.map((hero: Hero) =>({
-		...hero,
-		image: imageRealPath(hero.image),
-	}))
-
-
 	return {
 		...data,
-		heroes,
 	};
 }
